@@ -14,9 +14,11 @@ import io.github.brunoyillli.mscartoes.domain.DadosSolicitacaoEmissaoCartao;
 import io.github.brunoyillli.mscartoes.infra.repository.CartaoRepository;
 import io.github.brunoyillli.mscartoes.infra.repository.ClienteCartaoRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class EmissaoCartaoSubscriber {
 	
 	private final CartaoRepository cartaoRepository;
@@ -35,9 +37,9 @@ public class EmissaoCartaoSubscriber {
 			
 			clienteCartaoRepository.save(clienteCartao);
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
+			log.error("Erro ao receber solicitacao de emissão de carão: {}", e.getMessage());
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			log.error("Erro ao receber solicitacao de emissão de carão: {}", e.getMessage());
 		}
 	}
 }
